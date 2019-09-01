@@ -7,6 +7,7 @@ end
 
 gem 'devise'
 gem 'jquery-rails'
+gem 'acts_as_votable'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

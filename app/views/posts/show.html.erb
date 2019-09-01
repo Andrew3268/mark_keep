@@ -2,6 +2,10 @@
 <p>
   <strong>Title:</strong>
   <%= @post.title %>
+  <%= link_to like_post_path(@post), class: "like-btn", method: :put, remote: :true  do %>
+    <div><span><p>LIKE</p></span></div>
+    <span class="likes-count"><%= @post.get_upvotes.size %></span>
+  <% end %>
 </p>
 
 <%= link_to favorite_text, favorites_update_path(post: @post), id:'favorite_link', remote: true %>

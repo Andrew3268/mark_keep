@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get '/posts/favorites', to: 'posts#favorites', as: 'favorites'
 
   resources :posts do
+    member do
+      put "like" => "posts#vote"
+    end
     # post 'comments', to: 'comments#create'
     resources :comments, only: [:create, :destroy]
   end
