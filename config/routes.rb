@@ -1,0 +1,14 @@
+Rails.application.routes.draw do
+  
+  devise_for :users
+  get 'favorites/update'
+
+  root to: 'posts#index'
+  get '/posts/favorites', to: 'posts#favorites', as: 'favorites'
+
+  resources :posts do
+    # post 'comments', to: 'comments#create'
+    resources :comments, only: [:create, :destroy]
+  end
+  
+end
