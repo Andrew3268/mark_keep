@@ -1,46 +1,66 @@
-<!-- <p id="notice"><%= notice %></p> -->
+<div class="layout">
+  <%= render 'shared/header' %>
+  <div class="wrap">
+  
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
-<% if user_signed_in? %>
-  <ul>    
-    <li><%= link_to "Add New Post", new_post_path %></li>
-    <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
-  </ul>        
-<% else %>
-  <ul>
-    <li><%= link_to "Sign In", new_user_session_path %></li>
-    <li><%= link_to "Sign Up", new_user_registration_path, class: "button" %></li>
-  </ul>
-<% end %>
+    <!-- <p id="notice"><%= notice %></p> -->
 
-<%= link_to "My Favorites", favorites_path %>
-
-<h1>Posts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= link_to (image_tag post.image.url(:small)), post %></td>
-        <td><%= link_to post.title, post %></td>
-        <td><%= post.body %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to "Delete", post_path(post), method: :delete, data: {confirm: "Are you sure?"}%></td>
-        <td><%= pluralize(post.comments.count, "Comment") %></td>
-        <td><%= post.get_upvotes.size %> Likes</td>
-      </tr>
+    <% if user_signed_in? %>
+      Hello, <%= current_user.name %><br />
+      How are you TODAY? :D
+    <% else %>
+      Welcome Everyone :D
     <% end %>
-  </tbody>
-</table>
+    
+    <% if current_user.try(:admin?) %>
+      <p>You Are Admin</p>
+    <% end %>
 
-<br>
+    
+
+    <h1>Posts</h1>
+    <% @posts.each do |post| %>
+      <%= link_to (image_tag post.image.url(:small)), post %>
+      <h2><%= link_to post.title, post %></h2>
+      <p><%= post.user.name %></p>
+      <p><%= post.body %></p>
+      <%= pluralize(post.comments.count, "Comment") %>
+      <%= post.get_upvotes.size %> Likes
+      <% if current_user.try(:admin?) %>
+        <%= link_to 'Edit', edit_post_path(post) %>
+        <%= link_to "Delete", post_path(post), method: :delete, data: {confirm: "Are you sure?"}%>
+      <% end %>
+      
+    <% end %>
+
+
+    <br>
+
+    <div class="index_box">
+
+    </div>
+
+  </div><!--./wrap -->
+</div><!-- ./layout -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
